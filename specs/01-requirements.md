@@ -1,4 +1,4 @@
-# Requirements and acceptance criteria — v0.9
+# Requirements and acceptance criteria — v0.12
 
 The responsive web platform, shared account data across devices, and flexible Bullet Journal-based journal are confirmed. Detailed rules remain proposed unless marked otherwise. Each criterion will become an acceptance test when its flow is implemented. Existing RF, RNF, and AC identifiers are retained for traceability.
 
@@ -16,7 +16,7 @@ A goal has a title, intention, start date, optional end date, and active/paused/
 Capture nonempty text as a task (•), event (○), or note (–); default local date is today; goal and collection are optional. Symbols have accessible labels. Entries for previous days are supported.
 
 - AC-05: saving a note requires only text; it appears in the daily log with its date.
-- AC-06: a task can be completed and reopened; notes and events do not accept task states.
+- AC-06: a task can be completed and reopened; reopening a completed or discarded task returns it to Pending, clearing its current completion timestamp while retaining history. Notes and events do not accept task states. In progress requires the later explicit Start/subtask extension (ADR-006).
 - AC-07: editing or archiving an entry does not delete associated measurements; the interface explains this independence.
 
 ## RF-03 — Structured records (optional extension)
@@ -180,3 +180,6 @@ Host the application and its authoritative database in cloud services. Compare a
 - AC-75: before production, an isolated restore drill records backup age, operator actions and elapsed time from incident declaration to verified service restoration. Verify account mapping, entries, links, history and schema; document identity-provider recovery separately and invalidate restored application sessions. Compare results with RNF-07 rather than assuming provider backups prove recovery.
 
 New cloud criteria are planned checks, not executed tests. QA must also qualify transaction-local owner context reuse, connection exhaustion, controlled migrations and private cache behavior on the chosen stack.
+
+
+First-flow baseline: [ADR-006](decisions/ADR-006-first-flow-contracts.md) defines invited email/password access, eight-hour revocable opaque application sessions and the explicit reopen-to-Pending revision. [FS-01 through FS-13](13-first-flow-spec.md) map the initial implementation slice to existing criteria; later core/extension criteria are not removed or claimed passed. No software tests have executed.

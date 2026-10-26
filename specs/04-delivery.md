@@ -1,4 +1,4 @@
-# Delivery and validation — v0.9
+# Delivery and validation — v0.12
 
 ## Status
 
@@ -53,6 +53,13 @@ I-00 decision sequence (audience and approach now resolved; budget still open): 
 Version 0.8, 2026-10-26: architect, developer and qa independently voted A (3/3). The rapid client-acquisition demo is the initial delivery objective. Optional goals/structured tracking remain later increments; the base method scope is retained. Next specify the first slice, not the entire optional extension engine. See 09-architecture-vote.md.
 
 
-## Screen-design step — v0.9
+## Screen-design step — v0.12
 
 Focus consolidated independent UI/UX and QA inventory reviews into [eight proposed screen types](10-mvp-screens.md), with four main navigation destinations and shared contextual editors. Define low-fidelity Daily/Collection wireframes next, followed by Planning/Review and sign-in/access details. These are design proposals, not implemented screens or user-validated usability results. The first slice and full core delivery remain distinct; existing acceptance IDs and optional-extension ordering are unchanged.
+
+
+## First-flow execution baseline — v0.12
+
+Specs/design/planning completed as documents: [functional flow](13-first-flow-spec.md), [technical contracts](14-first-flow-technical-contracts.md), [storyboard](wireframes/first-flow.html), [backlog](15-first-flow-backlog.md), ADR-006. No application implementation has started. The 14-task plan is the execution source for the initial internal slice; the high-level increments above remain the full roadmap.
+
+Initial slice: invited sign-in → daily capture → collection search/linking → task completion/reopening → cross-device refresh. Core reopening returns Pending; In progress remains later. Intentional migration, Month/Future, Review and portability are subsequent core work, not silently removed. Next assignment is TASK-003 when implementation is requested. No deployment/purchase is authorized by specification completion.

@@ -1,4 +1,4 @@
-# Domain and calculations — v0.7
+# Domain and calculations — v0.12
 
 ## General model
 
@@ -33,7 +33,7 @@ Schemas and indicators have explicit revisions. Records retain schemaVersion; re
 
 ## Activity and Bullet Journal semantics
 
-Task states: pending, in progress, completed, discarded. A pending task can be started or completed; an in-progress task can be completed; pending/in-progress tasks can be discarded. Reopening a closed task puts it in progress. Events and notes have no task states.
+Task states: pending, in progress, completed, discarded. A pending task can be started or completed; an in-progress task can be completed; pending/in-progress tasks can be discarded. Reopening a closed task returns it to pending and clears its current completion timestamp while retaining history (ADR-006). Core states are pending/completed/discarded; in progress is enabled later by explicit StartTask or subtask activity. Reopening alone does not start work. Events and notes have no task states.
 
 Starting/completing a subtask puts a pending parent in progress. Completing all subtasks does not automatically close the parent. Discarding is not completion. Checklist percentage is informational and distinct from milestone progress.
 
@@ -83,6 +83,9 @@ A review may contain reflection alone. Decisions on pending tasks are required o
 
 ## Proposed cloud identity and command records
 
-Account uses a stable internal ID. ExternalIdentity maps a verified provider/subject pair to that Account, without making provider subjects the primary key of journal data. ApplicationSession stores a protected session reference, account ID, expiry and revocation state. Raw session secrets/tokens are excluded from audit logs. Validate the live session on each private request; an authentication outage must not bypass access control. Detailed sign-in/recovery and token storage contracts follow provider selection.
+Account uses a stable internal ID. ExternalIdentity maps a verified provider/subject pair to that Account, without making provider subjects the primary key of journal data. ApplicationSession stores a protected session reference, account ID, expiry and revocation state. Raw session secrets/tokens are excluded from audit logs. Validate the live session on each private request; an authentication outage must not bypass access control. Invited email/password access, operator-assisted recovery and hashed opaque application-session storage are defined in ADR-006 and the first-flow technical contracts.
 
 CommandReceipt stores ownerId, commandId, request fingerprint and completed result together with the business mutation/history in one transaction. A uniqueness constraint serializes concurrent duplicates; aborted transactions leave no successful receipt. Expected-version updates distinguish conflicts from transient infrastructure failures. If pooled connections use owner context, set it transaction-locally and test reuse across owners explicitly.
+
+
+First-flow physical-model/contract baseline: [technical contracts](14-first-flow-technical-contracts.md). Entry stores priority/inspiration separately from state. Link/unlink updates the same entries.version used by expectedEntryVersion; per-view ordering has explicit journal/collection order versions. Reopening semantics supersede v0.7’s in-progress target.

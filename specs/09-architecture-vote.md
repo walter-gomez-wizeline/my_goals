@@ -46,3 +46,6 @@ Intended cost illustration: one Vercel Pro seat ($20/month starting price) plus 
 Define the first slice's screens and acceptance mapping; select sign-in method and demo-account strategy; specify session lifecycle and minimum physical schema/transaction contracts. Then derive implementation tasks. The user has delegated the approach decision; purchases and deployment remain outside this action.
 
 No software tests, cloud benchmarks, or restore drills were executed as part of the vote.
+
+
+Scope refinement, v0.12: the [first internal implementation slice](13-first-flow-spec.md) covers completion/reopening and collection membership; intentional planning migration follows with Monthly/Future/Review. The complete-core demo commitment above remains in force. Access/lifecycle decisions are now in ADR-006.

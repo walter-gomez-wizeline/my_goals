@@ -68,41 +68,43 @@ Traceability: ADR-004/005; RF-02/05/07/16; AC-51/66/68.
 
 ## 3. Proposed sign-in and per-device session lifecycle
 
-This is the existing proposed revocable application-session contract made visible. It does not select email/password, OAuth, invitation flow, cookie lifetime or token storage details. Authentication failures end before creating an application session. Every private operation authorizes its resources after validating the session.
+This successful-path sequence follows ADR-006: invited email/password access, server-verified Supabase identity and an eight-hour revocable application session. Failed authentication or an unmapped/disabled account never creates an application session. Every private operation authorizes its resources after validating the session. CSRF, rate limiting and cookie details are specified in the first-flow technical contracts, not expanded here.
 
 ```mermaid
 sequenceDiagram
     actor User
     participant Browser
-    participant Auth as Supabase Auth
     participant App as Next.js server
+    participant Auth as Supabase Auth
     participant DB as PostgreSQL
-    User->>Browser: Sign in
-    Browser->>Auth: Complete chosen authentication flow
-    Auth-->>Browser: Authentication result
-    Browser->>App: Establish application session
-    App->>Auth: Validate provider authentication result
-    Auth-->>App: Verified provider and subject
-    App->>DB: Resolve internal Account and create ApplicationSession
-    DB-->>App: Committed session reference
-    App-->>Browser: Proposed Secure HttpOnly session cookie and private destination
-    Browser->>App: Private request with session cookie
-    App->>DB: Check expiry, revocation and owner mapping
-    DB-->>App: Live session and internal owner
-    App->>DB: Authorized owner-scoped operation
-    DB-->>App: Result
-    App-->>Browser: Private response
+    User->>Browser: Enter invited account credentials
+    Browser->>App: Submit sign in
+    App->>Auth: Verify email and password
+    Auth-->>App: Verified provider identity
+    App->>DB: Find active invited account
+    DB-->>App: Internal account ID
+    App->>DB: Create hashed application session
+    DB-->>App: Session committed
+    App-->>Browser: Set secure HttpOnly cookie
+    Browser->>App: Request private journal
+    App->>DB: Validate session and account
+    DB-->>App: Active session and owner ID
+    App->>DB: Read owned journal entries
+    DB-->>App: Owned entries
+    App-->>Browser: Return private response
     User->>Browser: Sign out this device
-    Browser->>App: Revoke current application session
-    App->>DB: Mark this session revoked and commit
+    Browser->>App: Request sign out
+    App->>DB: Revoke current session
     DB-->>App: Revocation committed
-    App-->>Browser: Expire cookie and clear account views and drafts
-    Note over Browser,DB: Later requests with this session are denied. other device sessions remain valid
+    App-->>Browser: Expire session cookie
+    Browser->>Browser: Clear account views and drafts
 ```
 
 The browser clears its own memory after the response; the server cannot directly erase arbitrary browser memory. An unreachable session store must not grant access. Already in-flight operations and exact session/write coordination need definition in the session contract; the sequence promises denial for subsequent requests after committed revocation. Restoring backups must invalidate restored sessions to avoid resurrecting revoked access.
 
-Traceability: RF-11/18; AC-49/50/73/74/75.
+After revocation commits, later requests using that session are denied. Other devices retain their distinct sessions. These are session requirements, not additional messages in the diagram.
+
+Traceability: ADR-006; RF-11/18; AC-49/50/73/74/75.
 
 ## 4. Proposed atomic task migration and retry
 
@@ -112,34 +114,37 @@ The same principle applies to other multi-entity mutations: business changes, hi
 sequenceDiagram
     participant UI as Browser editor
     participant App as MoveTask use case
-    participant DB as PostgreSQL transaction
-    UI->>App: entryId, destination, expectedVersion, commandId
-    App->>App: Validate live session and derive ownerId
-    App->>DB: BEGIN transaction
-    App->>DB: Serialize ownerId and commandId. check request fingerprint
-    alt Same command already committed
-        DB-->>App: Stored original result
+    participant DB as PostgreSQL
+    UI->>App: Submit move command and expected version
+    App->>App: Validate session and derive owner
+    App->>DB: Begin transaction
+    App->>DB: Serialize owner and command ID
+    App->>DB: Compare request fingerprint
+    alt Identical command already committed
+        DB-->>App: Stored result
         App->>DB: End replay transaction
-        App-->>UI: Original result without duplicate effects
-    else Reused key with different request
-        App->>DB: ROLLBACK
-        App-->>UI: Command conflict. preserve draft
+        App-->>UI: Return original result
+    else Command ID reused for different input
+        App->>DB: Roll back
+        App-->>UI: Reject command mismatch
     else New command
-        App->>DB: Validate entry and destination ownership and task state
-        App->>DB: Update original entry only if version matches
-        alt Ownership, state or version check fails
-            App->>DB: ROLLBACK
-            App-->>UI: Safe validation or version-conflict response
+        App->>DB: Check owned task and destination
+        App->>DB: Check state and expected version
+        alt A check fails
+            App->>DB: Roll back
+            App-->>UI: Return safe error or version conflict
         else Checks pass
-            App->>DB: Insert Movement and ChangeRecord
-            App->>DB: Store CommandReceipt and result
-            App->>DB: COMMIT
-            DB-->>App: Committed entry and movement
-            App-->>UI: Confirm saved and link origin to destination
+            App->>DB: Update original task
+            App->>DB: Append movement and audit history
+            App->>DB: Store command result
+            App->>DB: Commit transaction
+            DB-->>App: Commit confirmed
+            App-->>UI: Confirm saved movement
         end
     end
-    Note over UI,DB: Failure before commit rolls back. lost response after commit is recovered by retrying the same commandId
 ```
+
+Failure before commit rolls back all effects. If the response is lost after commit, retry the same payload and commandId to obtain its original result. A failed save never counts as confirmed success.
 
 Serialization/locking mechanism and SQL are not chosen here. Cross-owner references are rejected inside the command; expectedVersion prevents lost updates. For pooled connections, trusted owner context is transaction-local if used. A migration does not complete a task or create quantitative progress.
 
@@ -179,3 +184,5 @@ Architecture specialist reviewed the source contracts and supplied consistency c
 Syntax validation update (2026-10-26): reproduced the original sign-in parse error with Mermaid 11, replaced unescaped semicolons in both sequence diagrams, and successfully parsed all five corrected diagrams. Parser validation does not imply visual layout verification or application execution.
 
 For user journeys, screen navigation, task lifecycle, monthly review, save recovery and deployment environments, continue with the [six step-by-step walkthrough diagrams](12-project-walkthrough-diagrams.md).
+
+Compatibility update (2026-10-26): diagrams 3 and 4 now use short individual messages without inline semicolons or trailing sequence notes. Explanations remain in Markdown outside the Mermaid blocks. The sign-in sequence also follows the current ADR-006 server-credential contract.

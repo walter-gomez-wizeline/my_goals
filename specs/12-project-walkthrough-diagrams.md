@@ -85,8 +85,8 @@ stateDiagram-v2
     Pending --> InProgress: Start when extension is enabled
     InProgress --> Completed: Complete
     InProgress --> Discarded: Discard
-    Completed --> InProgress: Reopen under full domain contract
-    Discarded --> InProgress: Reopen under full domain contract
+    Completed --> Pending: Reopen
+    Discarded --> Pending: Reopen
     Pending --> Pending: Migrate or schedule
     InProgress --> InProgress: Migrate or schedule
     note right of Pending
@@ -97,10 +97,10 @@ stateDiagram-v2
 
 1. A task begins pending and can be completed or discarded.
 2. The optional extension adds explicit start/in-progress behavior.
-3. Reopening follows the current full-domain contract and does not create another task.
+3. Reopening returns to Pending under ADR-006 and does not create another task. Starting work later is explicit.
 4. Migrating or scheduling changes destination/history, never completion state. Closed tasks must be reopened before migration. Notes/events have no task lifecycle.
 
-**Open specification issue:** the domain currently reopens to In progress, but the initial screen scope defers that state. Before implementation, agree either to include the minimal in-progress state in the first task flow or to explicitly revise the core-only reopening target. This diagram exposes the inconsistency rather than silently introducing a new transition. It does not remove reopening from AC-06.
+**Resolved lifecycle decision (ADR-006):** core reopening returns to Pending and clears the current completion timestamp while preserving history. In progress remains a later explicit Start/subtask extension. This replaces the older reopen-to-in-progress contract and preserves AC-06.
 
 Traceability: RF-02/05/08; AC-06/15/18/27–31/65.
 
@@ -226,7 +226,7 @@ Traceability: ADR-003; RNF-04/06/07; AC-40/43–50/69/71/74/75.
 
 ## Next design work
 
-Resolve the core-only reopening contract, then use this journey/screen map to create low-fidelity Daily log and Collection wireframes. These diagrams explain existing requirements and open proposals; they do not introduce a new dashboard, goal wizard or tracking engine into the first demo.
+With the reopening contract resolved by ADR-006, use this journey/screen map to create low-fidelity Daily log and Collection wireframes. These diagrams explain existing requirements and open proposals; they do not introduce a new dashboard, goal wizard or tracking engine into the first demo.
 
 ## Validation evidence
 

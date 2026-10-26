@@ -2,7 +2,7 @@
 
 A digital journal based on Bullet Journal for capturing, organizing, and reviewing tasks, events, notes, and personal records; it helps you observe progress and work toward goals when needed.
 
-Status: specification v0.9. Core: index, future/monthly/daily logs, collections, rapid logging, reflection, and intentional migration. Goals, subtasks, structured records, and indicators are optional capabilities. Confirmed: responsive web application and an account with shared data across devices. Cloud hosting and a cloud database are confirmed requirements; selected approach: TypeScript/Next.js on Vercel with Supabase PostgreSQL/Auth, chosen unanimously by the three specialists for rapid client-demo delivery. Budget, region and deployment details remain open. No application has been implemented.
+Status: specification v0.12. Core: index, future/monthly/daily logs, collections, rapid logging, reflection, and intentional migration. Goals, subtasks, structured records, and indicators are optional capabilities. Confirmed: responsive web application and an account with shared data across devices. Cloud hosting and a cloud database are confirmed requirements; selected approach: TypeScript/Next.js on Vercel with Supabase PostgreSQL/Auth, chosen unanimously by the three specialists for rapid client-demo delivery. Budget, region and deployment details remain open. No application has been implemented.
 
 ## Documentation
 
@@ -25,6 +25,11 @@ Status: specification v0.9. Core: index, future/monthly/daily logs, collections,
 - [MVP screens and interactions](specs/10-mvp-screens.md)
 - [Architecture diagrams (Mermaid)](specs/11-architecture-diagrams.md)
 - [Project walkthrough diagrams, step by step](specs/12-project-walkthrough-diagrams.md)
+- [First-flow specification](specs/13-first-flow-spec.md)
+- [First-flow technical contracts](specs/14-first-flow-technical-contracts.md)
+- [First-flow execution backlog](specs/15-first-flow-backlog.md)
+- [Wireframe storyboard](specs/wireframes/first-flow.html)
+- [First-flow access and lifecycle decision](specs/decisions/ADR-006-first-flow-contracts.md)
 
 ## SDD workflow
 

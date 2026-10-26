@@ -1,4 +1,4 @@
-# MVP screen specification — v0.9
+# MVP screen specification — v0.12
 
 Date: 2026-10-26. Status: Focus's proposed screen scope, subject to refinement with the user. Architecture remains as selected in ADR-003. This is an interaction specification, not implemented UI or validated user research.
 
@@ -37,7 +37,7 @@ Date, period, search query and collection URL survive ordinary navigation where 
 
 Purpose: reach the private journal with minimal friction. Content: product name, brief description, sign-in form and authentication feedback. No mandatory goal onboarding or feature tour.
 
-Exact sign-in method, account recovery flow and visitor-account provisioning remain unresolved access-design decisions. Do not build a public sign-up button or promise a one-click anonymous demo in this specification. Client demos use synthetic content and isolated accounts once access is defined.
+ADR-006 now selects invited per-user email/password access, operator-assisted recovery and no public signup. Credential handoff/reset mechanics must be verified before external invitations. Do not build a public sign-up button or promise a one-click anonymous demo in this specification. Client demos use synthetic content and isolated accounts once access is defined.
 
 States: idle, submitting, validation failure, authentication failure, unavailable and expired session. Successful authentication opens the original authorized destination if safe; otherwise the daily log. Never include secrets in navigation URLs. Authentication errors do not reveal journal content.
 
@@ -122,7 +122,7 @@ Every dialog/sheet has an accessible name, keyboard access, visible focus, Escap
 
 ## 7. Delivery slices
 
-First thin slice: S-01 + S-02 + S-03/S-04 and shared entry/collection actions; demonstrate capture, ownership, persistence and findability. Task completion and an intentional-move interaction connect this to the existing MVP demo sequence.
+First thin slice: S-01 + S-02 + S-03/S-04 and shared entry/collection actions; demonstrate capture, ownership, persistence and findability. Task completion/reopening belong to this internal slice; intentional planning moves are the next increment. This explicitly refines the earlier demo-sequence shorthand and does not remove migration from the complete-core scope.
 
 Full core MVP: add S-05/S-06, S-07, S-08 and their states, preserving all required core-method and portability behaviors. A partial slice is not advertised as complete Bullet Journal support.
 
@@ -132,7 +132,7 @@ Later extensions: goal views, subtask/in-progress UI, structured record forms an
 
 Propose these eight screen types and four primary navigation destinations as the minimum complete core. Daily capture, index/collections and an explicit review are the demonstration's central story. This is a design recommendation, not user-research evidence or an implemented interface.
 
-Next: low-fidelity wireframes for Daily log and Collection first, then Planning and Review; decide sign-in method and demo-account access before finalizing S-01. Visual branding and component styling can be resolved during wireframing without reopening the selected stack. QA should verify the interaction contracts before implementation.
+Next: low-fidelity wireframes for Daily log and Collection first, then Planning and Review; use ADR-006 and the first-flow contracts to finalize S-01. Visual branding and component styling can be resolved during wireframing without reopening the selected stack. QA should verify the interaction contracts before implementation.
 
 
 ## 9. Specialist review evidence
@@ -142,6 +142,6 @@ UI/UX independently recommended sign-in, daily log, collection index/detail, pla
 QA also reviewed the staged screen specification. Its two remaining gaps were addressed: explicit keyboard-operable ordering controls with view-local order, and independent Priority/Inspiration toggles. This is document-level review only.
 
 
-## Diagram cross-reference and open lifecycle decision
+## Diagram cross-reference and resolved lifecycle decision
 
-See the [walkthrough diagrams](12-project-walkthrough-diagrams.md) for navigation and interaction flows. Before task implementation, reconcile AC-06 reopening with the full domain’s in-progress target and this screen scope’s deferred in-progress UI. No alternative reopening transition has been approved by the diagrams.
+See the [walkthrough diagrams](12-project-walkthrough-diagrams.md) for navigation and interaction flows. ADR-006 explicitly resolves core reopening to Pending; later Start/subtask activity enters In progress. See [first-flow specification](13-first-flow-spec.md), [wireframes](wireframes/first-flow.html) and [technical contracts](14-first-flow-technical-contracts.md) for implementation-ready scope and states.
