@@ -23,6 +23,8 @@ Status: specification v0.9. Core: index, future/monthly/daily logs, collections,
 - [Three-agent architecture review](specs/08-cloud-review.md)
 - [Architecture vote and demo approach](specs/09-architecture-vote.md)
 - [MVP screens and interactions](specs/10-mvp-screens.md)
+- [Architecture diagrams (Mermaid)](specs/11-architecture-diagrams.md)
+- [Project walkthrough diagrams, step by step](specs/12-project-walkthrough-diagrams.md)
 
 ## SDD workflow
 

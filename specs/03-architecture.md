@@ -1,10 +1,14 @@
-# Proposed architecture — v0.8
+# Architecture — v0.10
 
 Status: logical architecture with a selected MVP stack. Confirmed platform: responsive web application with an account and shared data across devices. Cloud application hosting and a cloud database are confirmed. TypeScript/Next.js, Vercel, Supabase PostgreSQL/Auth are selected through the user-delegated vote; paid-plan budget, region and deployment details remain open.
 
+## Architecture diagrams
+
+See [Mermaid architecture diagrams](11-architecture-diagrams.md) for cloud components, module dependencies, proposed session lifecycle, atomic migration/retry and core data relationships. Provider choices are selected; implementation contracts remain proposed where stated.
+
 ## Boundaries and responsibilities
 
-Modular application with a server and authoritative central storage. The web client uses an authenticated API. A relational database is proposed for transactions, references, and uniqueness constraints. Initial scale and personal use do not justify distributed services.
+Modular application with a server and authoritative central storage. The web client uses an authenticated API. Supabase PostgreSQL is selected for relational persistence; transaction, reference and uniqueness contracts are specified independently of the driver. Initial scale and personal use do not justify distributed services.
 
 Flow: interface → use cases → domain → persistence contracts. Adapters implement storage, export, and clock access. The domain depends on neither interface, framework, nor database.
 
@@ -44,12 +48,12 @@ Calculations derive from current records or selected tasks according to each ind
 - CloseReview(reviewId, expectedVersion, commandId) → Review.
 - ExportJournal() / RestoreJournal(payload, commandId).
 
-Errors distinguish validation, missing references, version conflicts, and storage failures; the interface offers concrete recovery actions. HTTP contracts will follow stack selection without coupling the domain to transport. Every operation receives an authenticated owner context.
+Errors distinguish validation, missing references, version conflicts, and storage failures; the interface offers concrete recovery actions. HTTP contracts will follow detailed use-case design without coupling the domain to transport. Every operation receives an authenticated owner context.
 
 ## Architecture decisions
 
 - ADR-001 resolved: responsive mobile/desktop web client; this decision alone does not imply synchronization or offline operation.
-- ADR-002 product decision resolved: account with shared central storage. Proposed architecture: online access and version control; provider, engine, and authentication remain pending in ADR-003.
+- ADR-002 product decision resolved: account with shared central storage. Proposed architecture: online access and version control; Supabase PostgreSQL/Auth and Vercel are selected in ADR-003; detailed sign-in/session and deployment configuration remain open.
 - ADR-003: [selected cloud stack](decisions/ADR-003-cloud-stack.md). Three independent votes select Next.js/TypeScript, Vercel and Supabase PostgreSQL/Auth for rapid client-demo delivery.
 
 The proposed MVP fetches changes on opening, focus recovery, or refresh. WebSockets are not required. Writes require connection and expected version; users resolve conflicts explicitly. Offline support with deferred synchronization requires expanded specifications before implementation.
@@ -66,7 +70,7 @@ ADR-004 records domain generalization and replaces central gym rules. Proposed i
 
 The application layer validates ownership and references in every use case; adapters always filter by owner. Reinforce isolation with engine constraints/policies where supported. Server credentials are never delivered to the browser.
 
-The proposed MVP does not keep journals in persistent browser storage. Views/forms use memory; account caches are cleared on sign-out or identity change. Private responses must not enter public caches. Session mechanism, account recovery, and request protection will be defined with the identity provider.
+The proposed MVP does not keep journals in persistent browser storage. Views/forms use memory; account caches are cleared on sign-out or identity change. Private responses must not enter public caches. Supabase Auth is selected; the proposed revocable application-session mechanism, account recovery and request protection still require detailed contracts.
 
 Central-store backups and a test restoration are prerequisites for production. The provider must meet RNF-07 or motivate an explicit revision of that target.
 

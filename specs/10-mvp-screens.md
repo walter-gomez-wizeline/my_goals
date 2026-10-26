@@ -140,3 +140,8 @@ Next: low-fidelity wireframes for Daily log and Collection first, then Planning 
 UI/UX independently recommended sign-in, daily log, collection index/detail, planning with Month/Future subviews, review, settings and shared editors. QA independently mapped the same functional coverage to current criteria and flagged loading/error separation, cross-account protection, conflict handling and the distinction between the first slice and the complete core. Focus resolved their outputs into eight screen types with four primary destinations. Both reviews were read-only; no prototype, usability study or application test was executed.
 
 QA also reviewed the staged screen specification. Its two remaining gaps were addressed: explicit keyboard-operable ordering controls with view-local order, and independent Priority/Inspiration toggles. This is document-level review only.
+
+
+## Diagram cross-reference and open lifecycle decision
+
+See the [walkthrough diagrams](12-project-walkthrough-diagrams.md) for navigation and interaction flows. Before task implementation, reconcile AC-06 reopening with the full domain’s in-progress target and this screen scope’s deferred in-progress UI. No alternative reopening transition has been approved by the diagrams.
