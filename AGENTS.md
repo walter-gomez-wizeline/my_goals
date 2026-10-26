@@ -2,7 +2,7 @@
 
 ## Product context
 
-My Goals is a general-purpose digital journal based on Bullet Journal. Read README.md and the relevant files under specs/ before working. The journal, entries, index, collections, daily/monthly/future logs, reflection, and intentional migration are the core. Goals, subtasks, structured records, and indicators are optional extensions. Gym, food/weight, and certification are illustrative examples, never mandatory structures.
+My Goals is a general-purpose digital journal based on Bullet Journal. Begin with PROJECT_STATUS.md and CONTRIBUTING.md, choose the assigned backlog task, then read only the relevant specs/ADRs. README.md is the complete index; do not load every document by default. The journal, entries, index, collections, daily/monthly/future logs, reflection, and intentional migration are the core. Goals, subtasks, structured records, and indicators are optional extensions. Gym, food/weight, and certification are illustrative examples, never mandatory structures.
 
 Project documentation, future code identifiers, and application-authored interface copy use English. Preserve user-authored content in its original language. Follow the user's communication preferences in conversation.
 
@@ -59,3 +59,8 @@ For screen work, uiux proposes information hierarchy, responsive behavior, inter
 
 
 Planner maintains the execution plan and recommends task owners/dependencies; Focus decides actual assignments and coordinates specialists. Estimates require stated assumptions and specialist input where needed. Do not create a backlog merely because the planning role has been configured; create or update it when assigned.
+
+
+## Persistent handoff
+
+Keep PROJECT_STATUS.md and the execution backlog current after each meaningful delivery in the same change. Focus owns the concise phase/decisions/next-task/gates summary; planner reconciles task status/dependencies with actual evidence. Include minimum reading references for the next task and update CONTRIBUTING.md when setup/check commands change. Do not require a new contributor to read chat history or the full repository. Commit hashes in status are labeled verified baselines, not self-updating HEAD values. Never depend on temporary validation scripts as documented project commands.

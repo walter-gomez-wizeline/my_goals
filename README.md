@@ -2,7 +2,13 @@
 
 A digital journal based on Bullet Journal for capturing, organizing, and reviewing tasks, events, notes, and personal records; it helps you observe progress and work toward goals when needed.
 
-Status: specification v0.12. Core: index, future/monthly/daily logs, collections, rapid logging, reflection, and intentional migration. Goals, subtasks, structured records, and indicators are optional capabilities. Confirmed: responsive web application and an account with shared data across devices. Cloud hosting and a cloud database are confirmed requirements; selected approach: TypeScript/Next.js on Vercel with Supabase PostgreSQL/Auth, chosen unanimously by the three specialists for rapid client-demo delivery. Budget, region and deployment details remain open. No application has been implemented.
+## Start here
+
+1. Read [PROJECT_STATUS.md](PROJECT_STATUS.md) for the current phase, decisions, next task and open gates.
+2. Follow [CONTRIBUTING.md](CONTRIBUTING.md) for targeted reading, setup reality and the SDD contribution workflow.
+3. Pick the next ready task in the [execution backlog](specs/15-first-flow-backlog.md) and read only its linked contracts/criteria.
+
+Current milestone: first-flow specification/design complete; application implementation has not started. Next: TASK-003, tooling and local setup. Selected approach: Next.js/TypeScript, Vercel and Supabase PostgreSQL/Auth. The status file is the maintained handoff; git history identifies the current revision.
 
 ## Documentation
 
@@ -19,7 +25,7 @@ Status: specification v0.12. Core: index, future/monthly/daily logs, collections
 - [Acceptance examples](specs/05-examples.md)
 
 - [Cloud architecture options](specs/07-cloud-architecture-options.md)
-- [Cloud stack decision proposal](specs/decisions/ADR-003-cloud-stack.md)
+- [Selected cloud stack decision](specs/decisions/ADR-003-cloud-stack.md)
 - [Three-agent architecture review](specs/08-cloud-review.md)
 - [Architecture vote and demo approach](specs/09-architecture-vote.md)
 - [MVP screens and interactions](specs/10-mvp-screens.md)

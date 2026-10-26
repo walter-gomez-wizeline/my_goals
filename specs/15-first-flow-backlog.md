@@ -2,6 +2,8 @@
 
 Date: 2026-10-26. Focus consolidated planner's read-only proposal using [functional specification](13-first-flow-spec.md), [technical contracts](14-first-flow-technical-contracts.md), [wireframes](wireframes/first-flow.html) and ADR-006. No application task is implemented or tested. The user authorized specification/design/planning in this turn, not deployment or purchase.
 
+Continuation entrypoints: [project status](../PROJECT_STATUS.md) and [contribution workflow](../CONTRIBUTING.md). These provide targeted context without requiring a full-specification read.
+
 ## Status and estimates
 
 Ready = sufficiently specified for assignment once implementation is requested. Waiting = depends on unfinished work. Design complete = document artifact exists and its relevant review is recorded; it is not executed software. Owner means suggested specialist; Focus controls actual assignments.
@@ -53,3 +55,6 @@ Deliverable exists, applicable criteria have actual evidence, defects are resolv
 The internal first slice does not replace these commitments or become the complete Bullet Journal demo by renaming it MVP. The planner role owns plan maintenance; Focus remains orchestrator.
 
 QA’s final read-only pass found no remaining specification blockers for TASK-003. Actual database, authentication, security and hosted behavior remain untested until implementation.
+
+
+After a task changes, update this backlog with actual evidence and PROJECT_STATUS.md with the next ready task/minimum reading packet. CONTRIBUTING.md owns verified setup/check commands once TASK-003 establishes them.
