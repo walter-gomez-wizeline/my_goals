@@ -1,4 +1,4 @@
-# Domain and calculations — v0.6
+# Domain and calculations — v0.7
 
 ## General model
 
@@ -79,3 +79,10 @@ The index is a navigable projection of collections and temporal logs; physical p
 Notes support brief or extended content. Priority and inspiration are optional metadata independent of state, with labeled symbols. Movement symbols describe history rather than replacing operational state.
 
 A review may contain reflection alone. Decisions on pending tasks are required only when closing an explicitly started pending-item review. Writing reflection never requires processing all tasks. Changing day does not move entries or discard pending tasks.
+
+
+## Proposed cloud identity and command records
+
+Account uses a stable internal ID. ExternalIdentity maps a verified provider/subject pair to that Account, without making provider subjects the primary key of journal data. ApplicationSession stores a protected session reference, account ID, expiry and revocation state. Raw session secrets/tokens are excluded from audit logs. Validate the live session on each private request; an authentication outage must not bypass access control. Detailed sign-in/recovery and token storage contracts follow provider selection.
+
+CommandReceipt stores ownerId, commandId, request fingerprint and completed result together with the business mutation/history in one transaction. A uniqueness constraint serializes concurrent duplicates; aborted transactions leave no successful receipt. Expected-version updates distinguish conflicts from transient infrastructure failures. If pooled connections use owner context, set it transaction-locally and test reuse across owners explicitly.

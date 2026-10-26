@@ -2,7 +2,7 @@
 
 A digital journal based on Bullet Journal for capturing, organizing, and reviewing tasks, events, notes, and personal records; it helps you observe progress and work toward goals when needed.
 
-Status: specification v0.6. Core: index, future/monthly/daily logs, collections, rapid logging, reflection, and intentional migration. Goals, subtasks, structured records, and indicators are optional capabilities. Confirmed: responsive web application and an account with shared data across devices. No application has been implemented and no stack has been selected.
+Status: specification v0.9. Core: index, future/monthly/daily logs, collections, rapid logging, reflection, and intentional migration. Goals, subtasks, structured records, and indicators are optional capabilities. Confirmed: responsive web application and an account with shared data across devices. Cloud hosting and a cloud database are confirmed requirements; selected approach: TypeScript/Next.js on Vercel with Supabase PostgreSQL/Auth, chosen unanimously by the three specialists for rapid client-demo delivery. Budget, region and deployment details remain open. No application has been implemented.
 
 ## Documentation
 
@@ -18,6 +18,12 @@ Status: specification v0.6. Core: index, future/monthly/daily logs, collections,
 - [Journal and collections as the core](specs/decisions/ADR-005-journal-first.md)
 - [Acceptance examples](specs/05-examples.md)
 
+- [Cloud architecture options](specs/07-cloud-architecture-options.md)
+- [Cloud stack decision proposal](specs/decisions/ADR-003-cloud-stack.md)
+- [Three-agent architecture review](specs/08-cloud-review.md)
+- [Architecture vote and demo approach](specs/09-architecture-vote.md)
+- [MVP screens and interactions](specs/10-mvp-screens.md)
+
 ## SDD workflow
 
 1. Discover needs and document real examples.
@@ -31,3 +37,9 @@ Status: specification v0.6. Core: index, future/monthly/daily logs, collections,
 These documents are a revisable proposal. Silence does not approve a decision. Implementation begins once the decisions needed for the first flow have been resolved.
 
 English is the language for project documentation, identifiers introduced in future code, and application interface copy. User-authored content may use any language; the application must not translate it automatically. Existing requirement IDs remain unchanged for traceability.
+
+## Specialist agents
+
+**Focus** (`focus`) is the lead orchestrator: it chooses when to involve `qa`, `developer`, `architect`, `uiux`, and `planner`, coordinates their work, and consolidates results. The primary agent follows this role through AGENTS.md; a reusable named Focus definition is also included. The UI/UX agent owns screen and user-experience specifications, responsive interactions, interface copy, visual consistency, and accessibility. See [project coordination rules](AGENTS.md) and [agent usage](.codex/agents/README.md). Definitions are written in English and inherit session model and permissions.
+
+The `planner` specialist is a Technical Project Manager responsible for a lightweight execution plan, traceable tasks, dependencies, priorities and qualified estimates. Focus retains orchestration and actual task assignment.

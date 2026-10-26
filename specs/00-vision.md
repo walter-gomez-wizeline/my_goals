@@ -1,4 +1,4 @@
-# Vision and scope — v0.6
+# Vision and scope — v0.8
 
 ## Problem
 
@@ -8,7 +8,11 @@ I need to capture different aspects of my life and revisit them to understand wh
 
 Capture first, then organize or measure later. The central journey is: capture → organize → consult → reflect → decide what comes next.
 
-Initial persona: the owner of a personal journal. Confirmed language: English for documentation and the interface; user content remains in its original language. Initial timezone: America/Bogota, configurable. Confirmed: responsive web application and an account with shared data across devices. Stack and provider remain undecided.
+Initial persona: the owner of a personal journal. Confirmed language: English for documentation and the interface; user content remains in its original language. Initial timezone: America/Bogota, configurable. Confirmed: responsive web application and an account with shared data across devices. Cloud hosting and a cloud database are confirmed requirements. Selected approach: TypeScript/Next.js on Vercel with Supabase PostgreSQL/Auth, following the user-delegated three-agent vote. Budget, region and operational details remain open.
+
+## Initial delivery objective
+
+Build an MVP quickly as a portfolio/demo to attract clients. Prioritize a polished, coherent journal flow and synthetic sample data. This commercial objective does not remove account isolation, persistence or the method’s core behavior. Optional tracking follows the core.
 
 ## Methodological foundation
 

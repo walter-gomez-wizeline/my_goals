@@ -1,6 +1,6 @@
-# Proposed architecture — v0.6
+# Proposed architecture — v0.8
 
-Status: stack-independent proposal. Confirmed platform: responsive web application with an account and shared data across devices. No technology or infrastructure has been approved.
+Status: logical architecture with a selected MVP stack. Confirmed platform: responsive web application with an account and shared data across devices. Cloud application hosting and a cloud database are confirmed. TypeScript/Next.js, Vercel, Supabase PostgreSQL/Auth are selected through the user-delegated vote; paid-plan budget, region and deployment details remain open.
 
 ## Boundaries and responsibilities
 
@@ -50,7 +50,7 @@ Errors distinguish validation, missing references, version conflicts, and storag
 
 - ADR-001 resolved: responsive mobile/desktop web client; this decision alone does not imply synchronization or offline operation.
 - ADR-002 product decision resolved: account with shared central storage. Proposed architecture: online access and version control; provider, engine, and authentication remain pending in ADR-003.
-- ADR-003: stack. Evaluate after ADR-001/002, considering maintenance, owner experience, transactions, and testing tools.
+- ADR-003: [selected cloud stack](decisions/ADR-003-cloud-stack.md). Three independent votes select Next.js/TypeScript, Vercel and Supabase PostgreSQL/Auth for rapid client-demo delivery.
 
 The proposed MVP fetches changes on opening, focus recovery, or refresh. WebSockets are not required. Writes require connection and expected version; users resolve conflicts explicitly. Offline support with deferred synchronization requires expanded specifications before implementation.
 
@@ -74,4 +74,13 @@ Central-store backups and a test restoration are prerequisites for production. T
 
 Journal and Reflection form a usable core without Goals or Tracking. Capture, organization, and qualitative review never require field or indicator definitions. Persistence includes Journal and EntryCollection links. RecordType and Indicator belong to a collection; Goal is optional. The interface starts with the daily log and index rather than a goal-configuration wizard.
 
-Dates, symbols, and operations are described in the walkthrough. Extensions build on the core and preserve original entries. No stack is implemented and no infrastructure is contracted at this stage. Application-authored copy and future code identifiers use English; stored user content is preserved unchanged.
+Dates, symbols, and operations are described in the walkthrough. Extensions build on the core and preserve original entries. The selected stack is not implemented and no infrastructure is contracted at this stage. Application-authored copy and future code identifiers use English; stored user content is preserved unchanged.
+
+
+## Cloud decision sequence
+
+See [cloud architecture options](07-cloud-architecture-options.md) for the logical deployment, alternatives, date-stamped cost sources, constraints, and planned verification. See [specialist review](08-cloud-review.md) for architecture/development/QA contributions.
+
+Proposed session design uses a revocable server-side application session checked on every private request, preserving AC-49 without relying only on token expiry. Proposed persistence makes business mutation, audit history, and command result atomic. Approved cloud processors may store/process service data under RNF-04; no journal content is sent to analytics or AI.
+
+The audience is initially prospective clients viewing a portfolio/demo. Approach selection is complete; budget is open. Implementation follows the next specification step: identity/demo access, first-flow screens and database contracts, then operational design. See the [vote record](09-architecture-vote.md).

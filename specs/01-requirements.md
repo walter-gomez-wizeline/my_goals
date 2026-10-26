@@ -1,4 +1,4 @@
-# Requirements and acceptance criteria — v0.6
+# Requirements and acceptance criteria — v0.9
 
 The responsive web platform, shared account data across devices, and flexible Bullet Journal-based journal are confirmed. Detailed rules remain proposed unless marked otherwise. Each criterion will become an acceptance test when its flow is implemented. Existing RF, RNF, and AC identifiers are retained for traceability.
 
@@ -65,7 +65,7 @@ Review allows consulting tasks, events, notes, and records for a period; writing
 - RNF-01: saving is never confirmed before persistence; failures leave the form recoverable.
 - RNF-02: activity dates are local dates; creation/change instants are UTC; timezone configuration uses IANA names. Changing timezone does not move historical dates.
 - RNF-03: controls support keyboard use, visible focus, labels, and states distinguishable without color alone.
-- RNF-04: do not send journal content to analytics or external services. With a server, owner isolation and authentication are required before remote exposure.
+- RNF-04: approved application-hosting/database processors may process journal data solely to operate the service. Approved identity services receive only the identity data they need, not journal content. Do not send journal content to analytics, AI, or unrelated third parties. Enforce owner isolation and authentication before remote exposure. Provider selection remains proposed until explicitly chosen.
 - RNF-05: proposed read/save response target: p95 ≤ 500 ms with 10,000 entries, excluding network time. Verify in the selected environment and document the measurement.
 
 ## RF-08 — Subtasks and in-progress state (optional extension)
@@ -94,7 +94,7 @@ Each indicator belongs to a collection and defines its type and data source; it 
 
 ## RF-10 — Responsive web experience
 
-Confirmed: mobile and desktop use. Proposed views: Journal/Today, Index/Collections, Month, Future, and Review. Goals and indicators appear as optional collection tools.
+Confirmed: mobile and desktop use. Proposed core screen types: Sign in, Daily log, Collections/index, Collection detail, Monthly log, Future log, Review, and Settings & data. Four primary destinations: Daily, Collections, Planning (Month/Future), Review; Settings is a utility destination. Entry creation/editing and migration use contextual panels/dialogs. Goals and indicators remain optional later collection tools. See [MVP screen specification](10-mvp-screens.md) for routes, states and interaction contracts.
 
 - AC-40: at widths of 360 px and 1280 px, users can create an activity, edit subtasks, and capture a record without horizontal scrolling in primary forms.
 - AC-41: a weight goal presents meals and a weight series; a certification goal presents courses and milestones using the same configuration engine. No gym fields are mandatory.
@@ -167,3 +167,16 @@ Confirmed by the user: all project specifications and application-authored inter
 
 - AC-69: documentation, examples, navigation, action labels, validation messages, empty states, accessibility labels, and the symbol key are in English.
 - AC-70: English is the default interface language; entering content in another language preserves it without automatic translation. Language choice does not change the configured timezone, historical dates, stored units, or numeric values.
+
+
+## RF-18 — Cloud operation (confirmed direction; implementation proposed)
+
+Host the application and its authoritative database in cloud services. Compare alternatives and decide step by step before implementation; cloud-provider, framework and plan selection are not implied by this requirement. See ADR-003 and cloud architecture options.
+
+- AC-71: the selected deployment persists journal data in its designated cloud database; restarting application compute does not lose committed entries. Accessing from another device uses the same account-owned data.
+- AC-72: application mutations, audit history, and owner-scoped command receipts/results commit atomically. Retrying after a committed response is lost returns the original result without duplicate effects; reusing the key with a different request is rejected.
+- AC-73: each private request verifies a live, revocable application session as well as identity. After current-session sign-out commits, subsequent requests using that session are denied; another device's session remains valid. A token signature alone is insufficient.
+- AC-74: preview/test deployments cannot access production data or secrets. Authenticated journal responses are excluded from shared/CDN caches; cached views and drafts cannot expose a previous account after identity changes.
+- AC-75: before production, an isolated restore drill records backup age, operator actions and elapsed time from incident declaration to verified service restoration. Verify account mapping, entries, links, history and schema; document identity-provider recovery separately and invalidate restored application sessions. Compare results with RNF-07 rather than assuming provider backups prove recovery.
+
+New cloud criteria are planned checks, not executed tests. QA must also qualify transaction-local owner context reuse, connection exhaustion, controlled migrations and private cache behavior on the chosen stack.

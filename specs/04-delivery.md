@@ -1,14 +1,14 @@
-# Delivery and validation — v0.6
+# Delivery and validation — v0.9
 
 ## Status
 
-Specifications center on journal and collections. No application has been implemented and no software tests have run. Responsive web and shared account data are confirmed; provider and stack remain undecided. Documentation and interface language: English.
+Specifications center on journal and collections. No application has been implemented and no software tests have run. Responsive web and shared account data are confirmed; cloud application/database required; Next.js/TypeScript, Vercel and Supabase PostgreSQL/Auth selected; budget, region and operational details remain open. Documentation and interface language: English.
 
 ## Increments
 
 | Increment | Verifiable delivery | Traceability |
 | --- | --- | --- |
-| I-00 | Consolidate journal journey, select stack/provider, record ADR-003 | ADR-001, ADR-002, ADR-005 |
+| I-00 | Three-agent stack vote completed; next specify first demo flow, identity/persistence contracts, budget and region | ADR-001, ADR-002, ADR-005 |
 | I-01 | Account, journal, persisted task/event/note capture without goals | RF-02, RF-10, RF-11; AC-51, AC-61 |
 | I-02 | Index, search, collections, links without copies; key/signifiers | RF-04, RF-13, RF-15 |
 | I-03 | Future/monthly logs, free reflection, intentional migration | RF-05, qualitative RF-06, RF-14, RF-16 |
@@ -42,5 +42,17 @@ Requirements traced to verified criteria; persistence after restart; isolation; 
 | 2026-10-26 | 0.4 | General model, typed records, indicators |
 | 2026-10-26 | 0.5 | Journal/collections core, walkthrough, optional extensions |
 | 2026-10-26 | 0.6 | English documentation and default interface language; stable requirement IDs; unchanged user-authored content |
+| 2026-10-26 | 0.7 | Three-agent cloud comparison, proposed ADR-003, privacy clarification, session/transaction verification criteria |
 
 Formula, unit, and source changes require explicit revision and historical treatment. There is currently no production data to migrate.
+
+
+I-00 decision sequence (audience and approach now resolved; budget still open): (1) audience/budget, (2) logical design, (3) candidate shortlist and cost model, (4) explicit stack decision, (5) identity/persistence contracts, (6) operational design. RF-18 and AC-71 through AC-75 expand cloud verification; the CV checklist in the options document maps further integration checks. None has been executed against a deployed application.
+
+
+Version 0.8, 2026-10-26: architect, developer and qa independently voted A (3/3). The rapid client-acquisition demo is the initial delivery objective. Optional goals/structured tracking remain later increments; the base method scope is retained. Next specify the first slice, not the entire optional extension engine. See 09-architecture-vote.md.
+
+
+## Screen-design step — v0.9
+
+Focus consolidated independent UI/UX and QA inventory reviews into [eight proposed screen types](10-mvp-screens.md), with four main navigation destinations and shared contextual editors. Define low-fidelity Daily/Collection wireframes next, followed by Planning/Review and sign-in/access details. These are design proposals, not implemented screens or user-validated usability results. The first slice and full core delivery remain distinct; existing acceptance IDs and optional-extension ordering are unchanged.
