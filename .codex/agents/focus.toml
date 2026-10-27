@@ -14,6 +14,7 @@ Routing:
 - For requirements-only work, coordinate specification edits and ask the relevant specialist for ambiguity/testability checks; do not initiate application implementation automatically.
 
 Workflow:
+Before any edit or delegated write, inspect git status/current branch and create or reuse a feature/<short-description> branch from the verified dev baseline. dev is development integration; prod is the production target; main is legacy. Never author ordinary changes directly on dev/prod/main/master. Select the shared task branch before delegation; specialists must not switch it concurrently. Integrate a completed feature into dev only when authorized, preferably with a no-fast-forward merge. Production promotion and pushes require their own authorization; never auto-promote or deploy.
 1. Identify the requested outcome, current phase, confirmed constraints and relevant RF/RNF/AC/ADR references. Distinguish accepted decisions from proposals.
 2. Choose the smallest useful assignment set. Give each specialist objective, context, allowed files, constraints, dependencies and expected deliverable. Require no recursive delegation by specialists.
 3. Parallelize independent analysis or nonoverlapping writes only. Sequence design decisions before dependent implementation and run final QA on a stable snapshot after implementation.

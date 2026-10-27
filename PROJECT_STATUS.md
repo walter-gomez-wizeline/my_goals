@@ -1,6 +1,6 @@
 # Project status — start here
 
-Updated: 2026-10-26. Last committed handoff baseline: `e5ae7d5`; TASK-003 implementation and the evidence linked below are subsequent working-tree changes. Use `git log -1` and `git status --short` for current repository state, not this recorded hash as an always-current HEAD.
+Updated: 2026-10-26. Last verified implementation baseline: `bbf0a75` (TASK-003). The workflow-policy feature is being integrated into dev under explicit user authorization; prod retains that baseline. Use `git log -1` and `git status --short` for current repository state, not this recorded hash as an always-current HEAD.
 
 ## Where we are
 
@@ -17,6 +17,12 @@ My Goals is a general-purpose Bullet Journal-inspired journal, initially a fast,
 | Application/package/toolchain | Local Next.js foundation, pinned npm lockfile, pg, SQL migration runner, unit/integration/browser checks; no product features yet |
 | Cloud resources and deployment | Not provisioned by this work; no hosted application or verified cloud environment |
 | Checks | Foundation lint/types/build, 13 unit checks, 2 real-PG transaction tests, desktop/mobile smoke; business/auth/security/recovery not yet verified |
+
+## Required Git workflow
+
+Use dev for development integration, prod for production-targeted changes, and feature/<description> for every authored change. Start new features from the verified dev baseline; never edit directly on dev/prod or legacy main. Authorized feature merges use dev; production promotion is a separate validated/authorized action.
+
+Branch setup: dev and prod start from main at bbf0a75. The workflow-policy feature is integrated into dev only; main/prod are unchanged by that feature. No remote push/default-branch change/deployment is part of this operation. Confirm actual branch and history with git before continuing. Next implementation work starts on a new feature/task-004-persistence-schema branch from dev.
 
 ## Continue with TASK-004
 
