@@ -79,11 +79,11 @@ Open [the storyboard](specs/wireframes/first-flow.html) in a browser for planned
 
 1. Choose a ready task and identify intended outcome, dependencies, allowed files and relevant RF/RNF/AC/FS/ADR references. If someone is already working on shared files, coordinate before editing.
 2. Distinguish confirmed choices, design baseline and remaining proposals. User direction takes precedence. For a behavior change, update affected specs/criteria and add/update an ADR if consequential **before** implementing the new behavior.
-3. Work in a focused branch when using a shared repository. No branch naming convention is currently required. Preserve unrelated local changes; do not reset another contributor's work.
+3. Every repository change must use a feature branch, including documents, tests, configuration and agent instructions. Before editing, inspect git status/current branch and create or reuse an appropriate feature/<short-description> branch (task ID optional). Never author changes directly on dev/prod or legacy main/master. Start new feature branches from the verified dev baseline. Preserve unrelated local changes; do not reset another contributor's work. Focus selects the branch before parallel agent writes; specialists must not switch the shared checkout.
 4. Deliver the smallest coherent flow or decision. Keep journal capture usable without optional tracking. Do not silently drop errors, history, authorization or accessibility to accelerate the demo.
 5. Run checks appropriate to the change and record exact commands, environment and outcomes. For code, use the established tooling once available; add meaningful regression checks. Mark unavailable/unexecuted checks honestly.
 6. Update the backlog row with evidence, dependencies and state. Update PROJECT_STATUS.md with the next ready task and open gates. Update setup instructions when tooling changes.
-7. Review the diff, stage intended files and create an English commit explaining the change. Push/PR workflow depends on the repository's actual remote setup; no remote or CI gate is assumed here.
+7. Review the diff, stage intended files and create an English commit on the feature branch. Any authorized push targets that branch. Features integrate into dev through an explicitly authorized merge/PR, preferably --no-ff. Promotion into prod requires separate authorization and validation; never merge a feature straight to prod or promote automatically. Remote branch protection must be configured separately if wanted.
 
 ## Validation by change type
 
@@ -117,3 +117,26 @@ Update status/backlog in the same change. In PROJECT_STATUS.md, label a commit h
 Focus coordinates scope, specialist choice and final integration. Planner maintains task/dependency/status accuracy. UI/UX, architect, developer and QA provide their own specialty; creating agents is not necessary for human development. Avoid competing backlogs or parallel edits to shared specs without an owner.
 
 Project documentation, identifiers and interface copy are English. User content is not automatically translated. Use synthetic fixtures only; never commit credentials, session secrets, provider tokens, personal journal content or environment secrets. Local/test and hosted-demo identities/data must stay separate. Purchases, provisioning, deployment and production-data mutations require their own authorization; a ready task is not that authorization.
+
+
+## GitFlow-style branch model
+
+- dev: long-lived development integration branch.
+- prod: long-lived production-target branch; no deployment is implied by its existence.
+- feature/<short-description>: all authored changes, normally branched from dev.
+- main: legacy baseline retained unchanged; no longer the development integration target.
+
+The user authorized creating dev/prod from main at bbf0a75 and merging feature/branch-workflow-policy into dev only. Future feature integration and production promotion require authorization. Do not delete branches, change repository defaults, configure remote protection or push unless requested. Release/hotfix conventions remain to define when needed.
+
+## Branch example
+
+From a clean intended base, before making changes:
+
+```sh
+git status --short
+git branch --show-current
+git switch dev
+git switch -c feature/task-004-persistence-schema
+```
+
+The example does not assume dev is synchronized with its remote: inspect base/history first. Reuse an existing task branch if appropriate, and never force a checkout over local work. Commit/push permissions remain scoped to the user's request; feature-branch policy is not authorization to merge or deploy.

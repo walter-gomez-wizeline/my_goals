@@ -6,6 +6,18 @@ My Goals is a general-purpose digital journal based on Bullet Journal. Begin wit
 
 Project documentation, future code identifiers, and application-authored interface copy use English. Preserve user-authored content in its original language. Follow the user's communication preferences in conversation.
 
+## Required GitFlow-style branch workflow
+
+User instruction, effective 2026-10-26: long-lived branches are dev (development integration) and prod (production-targeted changes). All edits, including code, specs, documentation, tests, configuration and agent instructions, happen on feature/<short-description> branches created from the appropriate verified dev baseline. Never author ordinary changes directly on dev/prod or legacy main/master.
+
+Focus checks git status/current branch and creates or reuses an appropriate feature branch before edits/delegated writes. Specialists verify that branch and must not switch the shared checkout while other agents work. Preserve unrelated changes; never reset, force-push or relocate unrelated work silently.
+
+Completed features integrate into dev through an explicitly authorized merge/PR. Prefer --no-ff merge commits to preserve feature boundaries. Merge commits are integration operations, not permission to edit directly on dev. Selection of a ready task alone does not authorize integration or push.
+
+prod receives only explicitly authorized, validated production-targeted integrations. Do not merge a feature straight into prod or promote dev automatically. A prod branch is a release target, not proof that a hosted deployment exists. Release/hotfix branch procedures can be specified when needed; do not invent automatic promotion or deployment.
+
+The present feature/branch-workflow-policy integration into dev is explicitly authorized by the user. dev and prod initially branch from main at bbf0a75; this policy feature goes to dev only. Keep legacy main unchanged. Branch creation/merge here is local; remote pushes, repository default-branch changes and GitHub branch protection are separate operations.
+
 ## Spec-driven development
 
 - Treat specifications as the behavioral contract. Preserve RF, RNF, AC, and ADR identifiers.

@@ -10,6 +10,10 @@ A digital journal based on Bullet Journal for capturing, organizing, and reviewi
 
 Current milestone: TASK-003 local foundation implemented and verified; journal/authentication features remain unimplemented. Next: TASK-004, application schema and migrations. Selected approach: Next.js/TypeScript, Vercel and Supabase PostgreSQL/Auth. The status file is the maintained handoff; git history identifies the current revision.
 
+## Branch workflow
+
+Use feature branches from dev for every change. Integrate authorized features into dev; promote to prod only after separate validation and authorization. Legacy main is retained unchanged. See [CONTRIBUTING.md](CONTRIBUTING.md) for the GitFlow-style workflow.
+
 ## Run locally
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for Node/npm prerequisites, environment examples, Docker services and verification. After setup, `npm run dev` serves the foundation at http://127.0.0.1:3000. No cloud credentials are required.
