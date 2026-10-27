@@ -78,7 +78,7 @@ Central-store backups and a test restoration are prerequisites for production. T
 
 Journal and Reflection form a usable core without Goals or Tracking. Capture, organization, and qualitative review never require field or indicator definitions. Persistence includes Journal and EntryCollection links. RecordType and Indicator belong to a collection; Goal is optional. The interface starts with the daily log and index rather than a goal-configuration wizard.
 
-Dates, symbols, and operations are described in the walkthrough. Extensions build on the core and preserve original entries. The selected stack is not implemented and no infrastructure is contracted at this stage. Application-authored copy and future code identifiers use English; stored user content is preserved unchanged.
+Dates, symbols, and operations are described in the walkthrough. Extensions build on the core and preserve original entries. TASK-003 now provides the local Next.js/toolchain foundation (ADR-007); journal/authentication features are not implemented and no hosted infrastructure has been provisioned. Application-authored copy and future code identifiers use English; stored user content is preserved unchanged.
 
 
 ## Cloud decision sequence
@@ -88,3 +88,6 @@ See [cloud architecture options](07-cloud-architecture-options.md) for the logic
 Proposed session design uses a revocable server-side application session checked on every private request, preserving AC-49 without relying only on token expiry. Proposed persistence makes business mutation, audit history, and command result atomic. Approved cloud processors may store/process service data under RNF-04; no journal content is sent to analytics or AI.
 
 The audience is initially prospective clients viewing a portfolio/demo. Approach selection is complete; budget is open. Implementation follows the next specification step: identity/demo access, first-flow screens and database contracts, then operational design. See the [vote record](09-architecture-vote.md).
+
+
+Local implementation baseline: [ADR-007 tooling](decisions/ADR-007-local-toolchain.md) and [TASK-003 verification](../docs/task-003-verification.md). Use CONTRIBUTING.md for actual setup commands. Runtime role/schema and owner enforcement begin in TASK-004; the transaction utility alone does not implement those contracts.

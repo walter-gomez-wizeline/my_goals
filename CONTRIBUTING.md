@@ -16,21 +16,64 @@ Read [PROJECT_STATUS.md](PROJECT_STATUS.md), select one ready task in the [backl
 
 Expand reading only if a reference or contradiction requires it. The [README](README.md) is the full index, not mandatory sequential reading.
 
-## Current setup reality
+## Local setup
 
-There is no application package, lockfile, schema implementation, CI workflow or runnable test suite yet. Do not run guessed install/test/dev commands or assume a framework version. TASK-003 establishes those and must replace this section with exact supported prerequisites, environment-variable names, install/start/migrate/test commands and expected outcomes once verified.
-
-Available now: Markdown specifications, Mermaid source, agent TOML definitions and a static HTML storyboard. Open [the storyboard](specs/wireframes/first-flow.html) in a browser; controls are wireframe notation and do not persist data. Use a Mermaid-capable viewer for diagrams. No secret or cloud account is needed to read/design.
-
-Git inspection from the repository root:
+Prerequisites: Node 24.18.0 (`nvm use` reads .nvmrc), npm 11.16.0 and Docker Compose for database checks. Exact direct dependencies and the lockfile are committed together. Run commands from the repository root, not with a symlinked npm --prefix path. No hosted credentials are required for this foundation.
 
 ```sh
-git status --short
-git log -5 --oneline
-git diff --check
+nvm install
+nvm use
+npm ci
+cp .env.example .env.local
+npm run dev
 ```
 
-These inspect changes/history/whitespace; they are not application tests. Do not depend on previous contributors' `/tmp` validation scripts.
+Open http://127.0.0.1:3000. The page deliberately says Development foundation; authentication, journal features and cloud services are not implemented. Stop the dev server with Ctrl-C. Copy .env.example only when .env.local does not already exist; never overwrite another contributor's configuration. .env.local is ignored by git.
+
+Environment variables (sample values are loopback-only synthetic Docker credentials):
+
+| Name | Purpose |
+| --- | --- |
+| DATABASE_URL | Development connection for the local connectivity check |
+| MIGRATION_DATABASE_URL | Separate local migration connection; TASK-004 establishes distinct roles |
+| TEST_DATABASE_URL | Explicit isolated my_goals_test connection; never the development or hosted database |
+| DATABASE_POOL_MAX | Development-check pool size, default 3, valid range 1–10; hosted connection budget remains open |
+| PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH | Optional already-installed Chromium/Chrome executable for smoke tests; normally install Playwright Chromium instead |
+
+### Database startup and migrations
+
+```sh
+npm run db:up
+npm run db:check
+npm run db:migrate:status
+npm run db:migrate:plan
+npm run test:integration
+npm run db:stop
+```
+
+Compose starts PostgreSQL 17 on loopback ports 55432 (persistent development database) and 55433 (tmpfs disposable test database). Stop affects only this Compose project; development data remains in its named volume, while test data is disposable. No volume-deletion/reset command is supplied. Ports must be available. Pin the image digest from compose.yaml; do not substitute an unreviewed latest major.
+
+`db:migrate:status` is a read-only metadata/source-file check. `db:migrate:plan` previews pending SQL; node-pg-migrate 9 may create its bookkeeping table even for a dry run. `npm run db:migrate` applies pending local migrations. Currently there are no business migration files (TASK-004 is next), so an empty migration list is expected. No command automatically migrates during an HTTP request.
+
+The development container's administrator credentials are for foundation checks only. Runtime least-privilege roles, application schema and hosted policies are not implemented. Guarded CLI commands reject nonlocal hosts, wrong database names and URL query overrides. Generic local PostgreSQL does not validate Supabase Auth, Data API isolation or hosted role policies.
+
+### Verification commands
+
+```sh
+npm run lint
+npm run typecheck
+npm test
+npm run build
+npm run test:integration
+npx playwright install chromium
+npm run test:smoke
+```
+
+`npm run check` combines lint, Next type generation/TypeScript, unit tests and production build. Integration tests require the running isolated test database and either TEST_DATABASE_URL or .env.local. They fail rather than skip when unavailable. Smoke tests require a prior build, start their own production server on 127.0.0.1:3100 and stop it afterward. They verify only the honest foundation page at desktop/mobile widths, not FS-01–FS-13. An optional explicit executable override avoids downloading a browser when suitable Chrome is already installed.
+
+`npm start` runs an existing production build on 127.0.0.1:3000; it does not build or deploy. Unit and browser checks do not require a cloud account. No live identity credentials belong in this setup. GitHub Actions has the same foundation/unit/database/browser checks configured; a workflow file is not evidence that CI has run remotely.
+
+Open [the storyboard](specs/wireframes/first-flow.html) in a browser for planned screens; it remains a static design artifact. Read [ADR-007](specs/decisions/ADR-007-local-toolchain.md) for tooling rationale and [verification evidence](docs/task-003-verification.md) for this delivery.
 
 ## Spec-driven workflow
 

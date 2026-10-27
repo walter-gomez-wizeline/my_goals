@@ -2,7 +2,7 @@
 
 ## Status
 
-Specifications center on journal and collections. No application has been implemented and no software tests have run. Responsive web and shared account data are confirmed; cloud application/database required; Next.js/TypeScript, Vercel and Supabase PostgreSQL/Auth selected; budget, region and operational details remain open. Documentation and interface language: English.
+Specifications center on journal and collections. TASK-003 local foundation is implemented and its lint/type/build/unit/PostgreSQL/browser checks have run successfully. Product journal/authentication features remain unimplemented. Responsive web and shared account data are confirmed; cloud application/database required; Next.js/TypeScript, Vercel and Supabase PostgreSQL/Auth selected; budget, region and operational details remain open. Documentation and interface language: English.
 
 ## Increments
 
@@ -60,6 +60,9 @@ Focus consolidated independent UI/UX and QA inventory reviews into [eight propos
 
 ## First-flow execution baseline — v0.12
 
-Specs/design/planning completed as documents: [functional flow](13-first-flow-spec.md), [technical contracts](14-first-flow-technical-contracts.md), [storyboard](wireframes/first-flow.html), [backlog](15-first-flow-backlog.md), ADR-006. No application implementation has started. The 14-task plan is the execution source for the initial internal slice; the high-level increments above remain the full roadmap.
+Specs/design/planning completed as documents: [functional flow](13-first-flow-spec.md), [technical contracts](14-first-flow-technical-contracts.md), [storyboard](wireframes/first-flow.html), [backlog](15-first-flow-backlog.md), ADR-006. TASK-003 foundation has since been implemented/verified; the account/journal feature tasks have not started. The 14-task plan is the execution source for the initial internal slice; the high-level increments above remain the full roadmap.
 
 Initial slice: invited sign-in → daily capture → collection search/linking → task completion/reopening → cross-device refresh. Core reopening returns Pending; In progress remains later. Intentional migration, Month/Future, Review and portability are subsequent core work, not silently removed. Next assignment is TASK-003 when implementation is requested. No deployment/purchase is authorized by specification completion.
+
+
+TASK-003 completion: see [verification report](../docs/task-003-verification.md) and ADR-007 for exact versions, commands and limits. TASK-004 is ready for assignment; hosted CI has not run and no hosted environment is provisioned.

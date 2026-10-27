@@ -8,7 +8,11 @@ A digital journal based on Bullet Journal for capturing, organizing, and reviewi
 2. Follow [CONTRIBUTING.md](CONTRIBUTING.md) for targeted reading, setup reality and the SDD contribution workflow.
 3. Pick the next ready task in the [execution backlog](specs/15-first-flow-backlog.md) and read only its linked contracts/criteria.
 
-Current milestone: first-flow specification/design complete; application implementation has not started. Next: TASK-003, tooling and local setup. Selected approach: Next.js/TypeScript, Vercel and Supabase PostgreSQL/Auth. The status file is the maintained handoff; git history identifies the current revision.
+Current milestone: TASK-003 local foundation implemented and verified; journal/authentication features remain unimplemented. Next: TASK-004, application schema and migrations. Selected approach: Next.js/TypeScript, Vercel and Supabase PostgreSQL/Auth. The status file is the maintained handoff; git history identifies the current revision.
+
+## Run locally
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for Node/npm prerequisites, environment examples, Docker services and verification. After setup, `npm run dev` serves the foundation at http://127.0.0.1:3000. No cloud credentials are required.
 
 ## Documentation
 
@@ -36,6 +40,8 @@ Current milestone: first-flow specification/design complete; application impleme
 - [First-flow execution backlog](specs/15-first-flow-backlog.md)
 - [Wireframe storyboard](specs/wireframes/first-flow.html)
 - [First-flow access and lifecycle decision](specs/decisions/ADR-006-first-flow-contracts.md)
+- [Local tooling decision](specs/decisions/ADR-007-local-toolchain.md)
+- [TASK-003 verification](docs/task-003-verification.md)
 
 ## SDD workflow
 

@@ -64,3 +64,6 @@ Planner maintains the execution plan and recommends task owners/dependencies; Fo
 ## Persistent handoff
 
 Keep PROJECT_STATUS.md and the execution backlog current after each meaningful delivery in the same change. Focus owns the concise phase/decisions/next-task/gates summary; planner reconciles task status/dependencies with actual evidence. Include minimum reading references for the next task and update CONTRIBUTING.md when setup/check commands change. Do not require a new contributor to read chat history or the full repository. Commit hashes in status are labeled verified baselines, not self-updating HEAD values. Never depend on temporary validation scripts as documented project commands.
+
+
+Current foundation commands and prerequisites are in CONTRIBUTING.md; run npm scripts from package.json rather than inventing alternatives. ADR-007 records selected local tooling. TASK-003 checks do not establish journal/auth/security correctness. Use the separate guarded local TEST_DATABASE_URL for integration work.

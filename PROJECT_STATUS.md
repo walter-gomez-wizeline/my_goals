@@ -1,10 +1,10 @@
 # Project status — start here
 
-Updated: 2026-10-26. Snapshot verified against implementation/specification commit `41b56e9`; this handoff-document update is subsequent work. Use `git log -1` and `git status --short` for current repository state, not this recorded hash as an always-current HEAD.
+Updated: 2026-10-26. Last committed handoff baseline: `e5ae7d5`; TASK-003 implementation and the evidence linked below are subsequent working-tree changes. Use `git log -1` and `git status --short` for current repository state, not this recorded hash as an always-current HEAD.
 
 ## Where we are
 
-**Phase: specification/design complete for the first internal slice; application implementation not started.**
+**Phase: TASK-003 local foundation implemented and verified; TASK-004 persistence schema is next.**
 
 My Goals is a general-purpose Bullet Journal-inspired journal, initially a fast, polished portfolio/demo to attract clients. Capture tasks/events/notes first; goals and numeric tracking are optional later tools. Project/interface language is English; user content may use any language.
 
@@ -13,23 +13,23 @@ My Goals is a general-purpose Bullet Journal-inspired journal, initially a fast,
 | Product and architecture | Defined; Next.js/TypeScript + Vercel + Supabase PostgreSQL/Auth selected |
 | First-flow behavior and contracts | Specified; QA document review found no blockers to tooling selection |
 | Screens | Eight core screen types specified; first-flow low-fidelity desktop/mobile storyboard prepared |
-| Execution plan | 14 tasks; TASK-001/002 have design artifacts; TASK-003 is next |
-| Application/package/toolchain | Not created; runtime versions, package manager, driver and test/migration tooling remain to select |
+| Execution plan | 14 tasks; TASK-001/002 have design artifacts; TASK-003 complete; TASK-004 is next |
+| Application/package/toolchain | Local Next.js foundation, pinned npm lockfile, pg, SQL migration runner, unit/integration/browser checks; no product features yet |
 | Cloud resources and deployment | Not provisioned by this work; no hosted application or verified cloud environment |
-| Application/security/recovery tests | Not run; design review is not evidence of runtime correctness |
+| Checks | Foundation lint/types/build, 13 unit checks, 2 real-PG transaction tests, desktop/mobile smoke; business/auth/security/recovery not yet verified |
 
-## Continue with TASK-003
+## Continue with TASK-004
 
-**Objective:** select and verify compatible versions/tooling, then create the reproducible local development/test foundation when implementation is requested. Suggested owner: developer; architect reviews choices.
+**Objective:** implement minimal application schema/migrations, synthetic fixtures, owner-consistent references, ordering/version constraints and audit/command storage. Suggested owner: developer; architect and QA review the relevant contracts/evidence.
 
-Minimum reading packet, in order:
+Minimum reading packet:
 
-1. [TASK-003 row and readiness/done rules](specs/15-first-flow-backlog.md).
-2. [Selected stack, ADR-003](specs/decisions/ADR-003-cloud-stack.md).
-3. [Technical contracts](specs/14-first-flow-technical-contracts.md), especially persistence roles, transactions and verification gates.
-4. [First-flow scope](specs/13-first-flow-spec.md), only as needed to understand required behavior.
+1. [TASK-004 and dependency/done rules](specs/15-first-flow-backlog.md).
+2. [First-flow technical contracts](specs/14-first-flow-technical-contracts.md), sections 2–4.
+3. [ADR-006 access/lifecycle](specs/decisions/ADR-006-first-flow-contracts.md) and [ADR-007 tooling](specs/decisions/ADR-007-local-toolchain.md).
+4. Existing src/infrastructure/db, scripts, migrations/README.md and integration tests; read broader domain sections only as needed.
 
-Deliverable: documented/verified tooling choices, reproducible setup, committed lockfile once packages exist, and actual baseline commands/checks. Preserve selected stack; do not begin all feature tasks or provision cloud resources merely because tooling is next. See [contribution workflow](CONTRIBUTING.md).
+Start with [CONTRIBUTING.md](CONTRIBUTING.md) for verified setup commands. Deliver a fresh isolated PostgreSQL migration and constraint/rollback tests, with distinct runtime/migration roles. Do not implement authentication or provision cloud resources merely because schema work is next.
 
 ## Decisions not to rediscover
 
@@ -41,17 +41,17 @@ Deliverable: documented/verified tooling choices, reproducible setup, committed 
 
 ## Open items and gates
 
-- TASK-003: package/runtime versions, database driver, migration/test tools; verify against current primary documentation.
-- TASK-004/005: implement and test constraints, transaction locks, owner isolation, rate limits, CSRF and sessions.
+- TASK-004: actual schema, least-privilege roles, composite ownership constraints and meaningful migration/fixture tests.
+- TASK-005: provider identity, opaque sessions, rate limits, CSRF and account-recovery behavior remain to implement.
 - Before external demo access: verify provisioning/password recovery and secure credential handoff, provider configuration and synthetic account isolation.
 - Before hosted provisioning: concrete budget, region, plans, credentials and deployment authorization. Approximate prior pricing illustrations are not approved spend.
 - Before production-ready claims: measured backup/identity restore under RNF-07/AC-75, not just configured backups.
 
-These do not block reading/planning or local tooling selection. No current code failure is diagnosed because application code does not exist yet.
+These do not block reading/planning or local tooling selection. The current foundation boots without cloud credentials; no journal/account feature is represented as implemented.
 
 ## Existing evidence
 
-Documentation links and stable IDs checked; wireframe layouts inspected in browser at desktop/mobile widths; Mermaid syntax parsed. QA reviewed specification consistency. Temporary validation scripts were outside the repository, so their original paths are not reproducible project commands. Recreate checks or add maintained tooling rather than depending on those temporary files.
+See [TASK-003 verification](docs/task-003-verification.md) for actual commands/results and limits. The maintained scripts/tests and lockfile now live in the repository; earlier temporary document checks are not required setup. PostgreSQL checks ran on isolated 17.11 containers; browser smoke used explicit installed Chrome. GitHub Actions is configured but has not been executed remotely. No business acceptance/security/restore test has passed by implication.
 
 ## How to keep this useful
 
